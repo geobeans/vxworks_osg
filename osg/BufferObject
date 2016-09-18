@@ -415,10 +415,10 @@ class OSG_EXPORT PixelDataBufferObject : public BufferObject
             NONE_ = 0,
 
             //! Buffer is in read mode (@see bindBufferInReadMode)
-            READ = 1,
+            READ_ = 1,
 
             //! Buffer is in write mode (@see bindBufferInWriteMode)
-            WRITE = 2
+            WRITE_ = 2
         };
 
         Mode getMode(unsigned int contextID) const { return (Mode)_mode[contextID]; }

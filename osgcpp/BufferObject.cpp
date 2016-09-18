@@ -844,7 +844,7 @@ void PixelDataBufferObject::bindBufferInReadMode(State& state)
     Extensions* extensions = getExtensions(contextID,true);
 
     extensions->glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, buffer(contextID));
-    _mode[contextID] = READ;
+    _mode[contextID] = READ_;
 }
 
 //--------------------------------------------------------------------------------
@@ -856,7 +856,7 @@ void PixelDataBufferObject::bindBufferInWriteMode(State& state)
     Extensions* extensions = getExtensions(contextID,true);
 
     extensions->glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, buffer(contextID));
-    _mode[contextID] = WRITE;
+    _mode[contextID] = WRITE_;
 }
 
 //--------------------------------------------------------------------------------
@@ -866,10 +866,10 @@ void PixelDataBufferObject::unbindBuffer(unsigned int contextID) const
 
     switch(_mode[contextID])
     {
-        case READ:
+        case READ_:
             extensions->glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB,0);
             break;
-        case WRITE:
+        case WRITE_:
             extensions->glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB,0);
             break;
         default:
