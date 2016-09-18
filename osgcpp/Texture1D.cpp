@@ -294,11 +294,12 @@ void Texture1D::applyTexImage1D(GLenum target, Image* image, State& state, GLsiz
         {
 
             numMipmapLevels = 1;
+            notify(NOTICE) << "gluScaleImage from Texture::applyTexImage2D_load failed!"<<std::endl;
 
-            gluBuild1DMipmaps( target, _internalFormat,
-                image->s(),
-                (GLenum)image->getPixelFormat(), (GLenum)image->getDataType(),
-                image->data() );
+//            gluBuild1DMipmaps( target, _internalFormat,
+//                image->s(),
+//                (GLenum)image->getPixelFormat(), (GLenum)image->getDataType(),
+//                image->data() );
 
         }
         else

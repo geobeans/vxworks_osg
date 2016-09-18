@@ -1013,10 +1013,11 @@ void Texture::applyTexImage2D_load(State& state, GLenum target, const Image* ima
 
         // rescale the image to the correct size.
         glPixelStorei(GL_PACK_ALIGNMENT,image->getPacking());
-        gluScaleImage(image->getPixelFormat(),
-                      image->s(),image->t(),image->getDataType(),image->data(),
-                      inwidth,inheight,image->getDataType(),data);
-        
+        //gluScaleImage(image->getPixelFormat(),
+        //              image->s(),image->t(),image->getDataType(),image->data(),
+        //              inwidth,inheight,image->getDataType(),data);
+        notify(NOTICE) << "gluScaleImage from Texture::applyTexImage2D_load failed!"<<std::endl;
+
     }    
 
     bool mipmappingRequired = _min_filter != LINEAR && _min_filter != NEAREST;
@@ -1259,10 +1260,11 @@ void Texture::applyTexImage2D_subload(State& state, GLenum target, const Image* 
 
         // rescale the image to the correct size.
         glPixelStorei(GL_PACK_ALIGNMENT,image->getPacking());
-        gluScaleImage(image->getPixelFormat(),
-                      image->s(),image->t(),image->getDataType(),image->data(),
-                      inwidth,inheight,image->getDataType(),data);
-        
+//        gluScaleImage(image->getPixelFormat(),
+//                      image->s(),image->t(),image->getDataType(),image->data(),
+//                      inwidth,inheight,image->getDataType(),data);
+        notify(NOTICE) << "gluScaleImage from Texture::applyTexImage2D_load failed!"<<std::endl;
+
     }    
 
 
