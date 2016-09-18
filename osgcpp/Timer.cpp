@@ -72,8 +72,8 @@ Timer* Timer::instance()
 
 #else
 
-    #include <sys/time.h>
-
+    #include <sys/times.h>
+    #include <openthreads/TimerExt.h>
     Timer::Timer( void )
     {
         _secsPerTick = (1.0 / (double) 1000000);
