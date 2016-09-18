@@ -20,7 +20,7 @@
     (defined (_AIX) && !defined (_AIX51))
     #include <OpenGL/glu.h>
 #else
-    #include <GL/glu.h>
+    #include <glu/glu.h>
 #endif
 
 #if defined(GLU_TESS_CALLBACK_TRIPLEDOT)
