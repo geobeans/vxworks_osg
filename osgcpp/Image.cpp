@@ -894,7 +894,8 @@ void Image::scaleImage(int s,int t,int r, GLenum newDataType)
         return;
     }
 
-    
+    notify(WARN)<<"Warning: Image::scaleImage failed because of not realized gluScaleImage function."<<std::endl;
+    return;
 
     unsigned int newTotalSize = computeRowWidthInBytes(s,_pixelFormat,newDataType,_packing)*t;
 
@@ -910,31 +911,31 @@ void Image::scaleImage(int s,int t,int r, GLenum newDataType)
     glPixelStorei(GL_PACK_ALIGNMENT,_packing);
     glPixelStorei(GL_UNPACK_ALIGNMENT,_packing);
 
-    GLint status = gluScaleImage(_pixelFormat,
-        _s,
-        _t,
-        _dataType,
-        _data,
-        s,
-        t,
-        newDataType,
-        newData);
+//    GLint status = gluScaleImage(_pixelFormat,
+//        _s,
+//        _t,
+//        _dataType,
+//        _data,
+//        s,
+//        t,
+//        newDataType,
+//        newData);
 
-    if (status==0)
-    {
-
-        // free old image.
-        _s = s;
-        _t = t;
-        _dataType = newDataType;
-        setData(newData,USE_NEW_DELETE);
-    }
-    else
-    {
-       delete [] newData;
-
-        notify(WARN) << "Error Image::scaleImage() did not succeed : errorString = "<<gluErrorString((GLenum)status)<<std::endl;
-    }
+//    if (status==0)
+//    {
+//
+//        // free old image.
+//        _s = s;
+//        _t = t;
+//        _dataType = newDataType;
+//        setData(newData,USE_NEW_DELETE);
+//    }
+//    else
+//    {
+//       delete [] newData;
+//
+//        notify(WARN) << "Error Image::scaleImage() did not succeed : errorString = "<< status <<std::endl;
+//    }
     
     dirty();
 }
@@ -976,21 +977,24 @@ void Image::copySubImage(int s_offset, int t_offset, int r_offset, const osg::Im
 
     glPixelStorei(GL_UNPACK_ALIGNMENT,_packing);
     
-    GLint status = gluScaleImage(_pixelFormat,
-        source->s(),
-        source->t(),
-        source->getDataType(),
-        source->data(),
-        source->s(),
-        source->t(),
-        _dataType,
-        data_destination);
+    notify(WARN)<<"Warning: Image::copySubImage failed because of not realized gluScaleImage function."<<std::endl;
+        
+    
+//    GLint status = gluScaleImage(_pixelFormat,
+//        source->s(),
+//        source->t(),
+//        source->getDataType(),
+//        source->data(),
+//        source->s(),
+//        source->t(),
+//        _dataType,
+//        data_destination);
 
     glPixelStorei(GL_PACK_ROW_LENGTH,0);
 
-    if (status!=0)
+    //if (status!=0)
     {
-        notify(WARN) << "Error Image::scaleImage() do not succeed : errorString = "<<gluErrorString((GLenum)status)<<std::endl;
+        notify(WARN) << "Error Image::copySubImage() do not succeed "<<std::endl;
     }
 
 }
