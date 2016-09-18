@@ -34,6 +34,7 @@ void TexEnvFilter::apply(State& state) const
 
     if (s_isTexLodBias)
     {
+    	osg::notify(WARN)<<"Warning: glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, GL_TEXTURE_LOD_BIAS_EXT, _lodBias) maybe failed! "<< std::endl;
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, GL_TEXTURE_LOD_BIAS_EXT, _lodBias);
     }
 }
