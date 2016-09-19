@@ -42,8 +42,15 @@ unsigned int Drawable::s_numberDeletedDrawablesInLastFrame = 0;
 typedef std::multimap<unsigned int,GLuint> DisplayListMap;
 typedef osg::buffered_object<DisplayListMap> DeletedDisplayListCache;
 
-static OpenThreads::Mutex s_mutex_deletedDisplayListCache;
-static DeletedDisplayListCache s_deletedDisplayListCache;
+//static OpenThreads::Mutex s_mutex_deletedDisplayListCache;
+//static DeletedDisplayListCache s_deletedDisplayListCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedDisplayListCache)
+
+GINIT(DeletedDisplayListCache,deletedDisplayListCache)
+
+#define s_mutex_deletedDisplayListCache Getmutex_deletedDisplayListCache()
+#define s_deletedDisplayListCache GetdeletedDisplayListCache()
 
 GLuint Drawable::generateDisplayList(unsigned int contextID, unsigned int sizeHint)
 {

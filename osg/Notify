@@ -142,4 +142,11 @@ public:
 
 }
 
+#define GINIT(ctype,avar) \
+    ctype##& Get##avar() \
+  {\
+     static ctype _##avar;\
+     return _##avar;\
+  }
+
 #endif

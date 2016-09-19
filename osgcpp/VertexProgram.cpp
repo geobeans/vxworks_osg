@@ -29,8 +29,15 @@ using namespace osg;
 typedef std::list<GLuint> VertexProgramObjectList;
 typedef osg::buffered_object<VertexProgramObjectList> DeletedVertexProgramObjectCache;
 
-static OpenThreads::Mutex              s_mutex_deletedVertexProgramObjectCache;
-static DeletedVertexProgramObjectCache s_deletedVertexProgramObjectCache;
+//static OpenThreads::Mutex              s_mutex_deletedVertexProgramObjectCache;
+//static DeletedVertexProgramObjectCache s_deletedVertexProgramObjectCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedVertexProgramObjectCache)
+
+GINIT(DeletedVertexProgramObjectCache,deletedVertexProgramObjectCache)
+
+#define s_mutex_deletedVertexProgramObjectCache Getmutex_deletedVertexProgramObjectCache()
+#define s_deletedVertexProgramObjectCache GetdeletedVertexProgramObjectCache()
 
 void VertexProgram::deleteVertexProgramObject(unsigned int contextID,GLuint handle)
 {

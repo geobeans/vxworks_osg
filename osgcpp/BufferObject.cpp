@@ -34,8 +34,15 @@ using namespace osg;
 typedef std::multimap<unsigned int,GLuint> BufferObjectMap;
 typedef osg::buffered_object<BufferObjectMap> DeletedBufferObjectCache;
 
-static OpenThreads::Mutex s_mutex_deletedBufferObjectCache;
-static DeletedBufferObjectCache s_deletedBufferObjectCache;
+//static OpenThreads::Mutex s_mutex_deletedBufferObjectCache;
+//static DeletedBufferObjectCache s_deletedBufferObjectCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedBufferObjectCache)
+
+GINIT(DeletedBufferObjectCache,deletedBufferObjectCache)
+
+#define s_mutex_deletedBufferObjectCache Getmutex_deletedBufferObjectCache()
+#define s_deletedBufferObjectCache GetdeletedBufferObjectCache()
 
 void BufferObject::deleteBufferObject(unsigned int contextID,GLuint globj)
 {

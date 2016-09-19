@@ -29,8 +29,15 @@ using namespace osg;
 typedef std::list<GLuint> FragmentProgramObjectList;
 typedef osg::buffered_object<FragmentProgramObjectList> DeletedFragmentProgramObjectCache;
 
-static OpenThreads::Mutex                s_mutex_deletedFragmentProgramObjectCache;
-static DeletedFragmentProgramObjectCache s_deletedFragmentProgramObjectCache;
+//static OpenThreads::Mutex                s_mutex_deletedFragmentProgramObjectCache;
+//static DeletedFragmentProgramObjectCache s_deletedFragmentProgramObjectCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedFragmentProgramObjectCache)
+
+GINIT(DeletedFragmentProgramObjectCache,deletedFragmentProgramObjectCache)
+
+#define s_mutex_deletedFragmentProgramObjectCache Getmutex_deletedFragmentProgramObjectCache()
+#define s_deletedFragmentProgramObjectCache GetdeletedFragmentProgramObjectCache()
 
 void FragmentProgram::deleteFragmentProgramObject(unsigned int contextID,GLuint handle)
 {

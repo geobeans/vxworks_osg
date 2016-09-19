@@ -31,16 +31,35 @@
 #endif
 
 typedef std::set<std::string>  ExtensionSet;
-static osg::buffered_object<ExtensionSet> s_glExtensionSetList;
-static osg::buffered_object<std::string> s_glRendererList;
-static osg::buffered_value<int> s_glInitializedList;
+//static osg::buffered_object<ExtensionSet> s_glExtensionSetList;
+//static osg::buffered_object<std::string> s_glRendererList;
+//static osg::buffered_value<int> s_glInitializedList;
+//
+//static osg::buffered_object<ExtensionSet> s_gluExtensionSetList;
+//static osg::buffered_object<std::string> s_gluRendererList;
+//static osg::buffered_value<int> s_gluInitializedList;
 
-static osg::buffered_object<ExtensionSet> s_gluExtensionSetList;
-static osg::buffered_object<std::string> s_gluRendererList;
-static osg::buffered_value<int> s_gluInitializedList;
+GINIT(osg::buffered_object<ExtensionSet>,glExtensionSetList)
 
-static const char* envVar = getenv("OSG_GL_EXTENSION_DISABLE");
-static std::string s_GLExtensionDisableString(envVar?envVar:"Nothing defined");
+GINIT(osg::buffered_object<std::string>,glRendererList)
+
+GINIT(osg::buffered_value<int>,glInitializedList)
+
+GINIT(osg::buffered_object<ExtensionSet>,gluExtensionSetList)
+
+GINIT(osg::buffered_object<std::string>,gluRendererList)
+
+GINIT(osg::buffered_value<int>,gluInitializedList)
+
+#define s_glExtensionSetList GetglExtensionSetList()
+#define s_glRendererList GetglRendererList()
+#define s_glInitializedList GetglInitializedList()
+#define s_gluExtensionSetList GetgluExtensionSetList()
+#define s_gluRendererList GetgluRendererList()
+#define s_gluInitializedList GetgluInitializedList()
+
+//static const char* envVar = getenv("OSG_GL_EXTENSION_DISABLE");
+//static std::string s_GLExtensionDisableString(envVar?envVar:"Nothing defined");
 
 float osg::getGLVersionNumber()
 {
@@ -235,6 +254,9 @@ void osg::setGLExtensionDisableString(const std::string& disableString)
 
 std::string& osg::getGLExtensionDisableString()
 {
+	static const char* envVar = getenv("OSG_GL_EXTENSION_DISABLE");
+	static std::string s_GLExtensionDisableString(envVar?envVar:"Nothing defined");
+	    
     return s_GLExtensionDisableString;
 }
 

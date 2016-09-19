@@ -128,8 +128,15 @@ FBOExtensions::FBOExtensions(unsigned int contextID)
 typedef std::list<GLuint> RenderBufferHandleList;
 typedef osg::buffered_object<RenderBufferHandleList> DeletedRenderBufferCache;
 
-static OpenThreads::Mutex    s_mutex_deletedRenderBufferCache;
-static DeletedRenderBufferCache s_deletedRenderBufferCache;
+//static OpenThreads::Mutex    s_mutex_deletedRenderBufferCache;
+//static DeletedRenderBufferCache s_deletedRenderBufferCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedRenderBufferCache)
+
+GINIT(DeletedRenderBufferCache,deletedRenderBufferCache)
+
+#define s_mutex_deletedRenderBufferCache Getmutex_deletedRenderBufferCache()
+#define s_deletedRenderBufferCache GetdeletedRenderBufferCache()
 
 void RenderBuffer::deleteRenderBuffer(unsigned int contextID, GLuint rb)
 {
@@ -651,8 +658,15 @@ int FrameBufferAttachment::getTextureArrayLayer() const
 typedef std::list<GLuint> FrameBufferObjectHandleList;
 typedef osg::buffered_object<FrameBufferObjectHandleList> DeletedFrameBufferObjectCache;
 
-static OpenThreads::Mutex    s_mutex_deletedFrameBufferObjectCache;
-static DeletedFrameBufferObjectCache s_deletedFrameBufferObjectCache;
+//static OpenThreads::Mutex    s_mutex_deletedFrameBufferObjectCache;
+//static DeletedFrameBufferObjectCache s_deletedFrameBufferObjectCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedFrameBufferObjectCache)
+
+GINIT(DeletedFrameBufferObjectCache,deletedFrameBufferObjectCache)
+
+#define s_mutex_deletedFrameBufferObjectCache Getmutex_deletedFrameBufferObjectCache()
+#define s_deletedFrameBufferObjectCache GetdeletedFrameBufferObjectCache()
 
 void FrameBufferObject::deleteFrameBufferObject(unsigned int contextID, GLuint rb)
 {

@@ -39,7 +39,11 @@
 
 
 typedef osg::buffered_value< osg::ref_ptr< osg::Drawable::Extensions > > OcclusionQueryBufferedExtensions;
-static OcclusionQueryBufferedExtensions s_OQ_bufferedExtensions;
+//static OcclusionQueryBufferedExtensions s_OQ_bufferedExtensions;
+
+GINIT(OcclusionQueryBufferedExtensions,OQ_bufferedExtensions)
+
+#define s_OQ_bufferedExtensions GetOQ_bufferedExtensions()
 
 //
 // Support classes, used by (and private to) OcclusionQueryNode.
@@ -287,8 +291,16 @@ struct ClearQueriesCallback : public osg::Camera::DrawCallback
 typedef std::list< GLuint > QueryObjectList;
 typedef osg::buffered_object< QueryObjectList > DeletedQueryObjectCache;
 
-static OpenThreads::Mutex s_mutex_deletedQueryObjectCache;
-static DeletedQueryObjectCache s_deletedQueryObjectCache;
+//static OpenThreads::Mutex s_mutex_deletedQueryObjectCache;
+//static DeletedQueryObjectCache s_deletedQueryObjectCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedQueryObjectCache)
+
+GINIT(DeletedQueryObjectCache,deletedQueryObjectCache)
+
+#define s_mutex_deletedQueryObjectCache Getmutex_deletedQueryObjectCache()
+#define s_deletedQueryObjectCache GetdeletedQueryObjectCache()
+
 
 namespace osg
 {

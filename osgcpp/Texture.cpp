@@ -125,9 +125,13 @@ unsigned int Texture::s_numberDeletedTextureInLastFrame = 0;
 unsigned int s_minimumNumberOfTextureObjectsToRetainInCache = 0;
 
 typedef buffered_value< ref_ptr<Texture::Extensions> > BufferedExtensions;
-static BufferedExtensions s_extensions;
+//static BufferedExtensions s_extensions;
 
-static ref_ptr<TextureObjectManager> s_textureObjectManager = new TextureObjectManager;
+GINIT(BufferedExtensions,bufferextensions)
+
+#define s_extensions Getbufferextensions()
+
+//static ref_ptr<TextureObjectManager> s_textureObjectManager = new TextureObjectManager;
 
 void Texture::setMinimumNumberOfTextureObjectsToRetainInCache(unsigned int minimum)
 {
@@ -307,6 +311,7 @@ void TextureObjectManager::flushTextureObjects(unsigned int contextID,double cur
 
 static TextureObjectManager* getTextureObjectManager()
 {
+	static ref_ptr<TextureObjectManager> s_textureObjectManager = new TextureObjectManager;
     return s_textureObjectManager.get();
 }
 

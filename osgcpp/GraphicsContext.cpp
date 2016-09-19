@@ -185,9 +185,19 @@ public:
 
 
 typedef std::map<unsigned int, ContextData>  ContextIDMap;
-static ContextIDMap s_contextIDMap;
-static OpenThreads::ReentrantMutex s_contextIDMapMutex;
-static GraphicsContext::GraphicsContexts s_registeredContexts;
+//static ContextIDMap s_contextIDMap;
+//static OpenThreads::ReentrantMutex s_contextIDMapMutex;
+//static GraphicsContext::GraphicsContexts s_registeredContexts;
+
+GINIT(ContextIDMap,contextmap)
+
+GINIT(OpenThreads::ReentrantMutex,contextIDMapMutex)
+
+GINIT(GraphicsContext::GraphicsContexts,registeredContexts)
+
+#define s_contextIDMap Getcontextmap()
+#define s_contextIDMapMutex GetcontextIDMapMutex()
+#define s_registeredContexts GetregisteredContexts()
 
 unsigned int GraphicsContext::createNewContextID()
 {

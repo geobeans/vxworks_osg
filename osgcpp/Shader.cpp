@@ -41,8 +41,15 @@ using namespace osg;
 typedef std::list<GLuint> GlShaderHandleList;
 typedef osg::buffered_object<GlShaderHandleList> DeletedGlShaderCache;
 
-static OpenThreads::Mutex    s_mutex_deletedGlShaderCache;
-static DeletedGlShaderCache  s_deletedGlShaderCache;
+//static OpenThreads::Mutex    s_mutex_deletedGlShaderCache;
+//static DeletedGlShaderCache  s_deletedGlShaderCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedGlShaderCache)
+
+GINIT(DeletedGlShaderCache,deletedGlShaderCache)
+
+#define s_mutex_deletedGlShaderCache Getmutex_deletedGlShaderCache()
+#define s_deletedGlShaderCache GetdeletedGlShaderCache()
 
 void Shader::deleteGlShader(unsigned int contextID, GLuint shader)
 {

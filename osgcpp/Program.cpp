@@ -40,8 +40,15 @@ using namespace osg;
 typedef std::list<GLuint> GlProgramHandleList;
 typedef osg::buffered_object<GlProgramHandleList> DeletedGlProgramCache;
 
-static OpenThreads::Mutex    s_mutex_deletedGlProgramCache;
-static DeletedGlProgramCache s_deletedGlProgramCache;
+//static OpenThreads::Mutex    s_mutex_deletedGlProgramCache;
+//static DeletedGlProgramCache s_deletedGlProgramCache;
+
+GINIT(OpenThreads::Mutex,mutex_deletedGlProgramCache)
+
+GINIT(DeletedGlProgramCache,deletedGlProgramCache)
+
+#define s_mutex_deletedGlProgramCache Getmutex_deletedGlProgramCache()
+#define s_deletedGlProgramCache GetdeletedGlProgramCache()
 
 void Program::deleteGlProgram(unsigned int contextID, GLuint program)
 {
